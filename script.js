@@ -22,7 +22,7 @@ function createListOfNotes() {
         newNoteItem.textContent = noteItem; // inner text of li in HTML 
         newNoteItem.id = noteItem; // id of li in HTML
         //console.log(newNoteItem.id);
-        newNoteItem.style.color = "darkblue";
+        //newNoteItem.style.color = "darkblue";
 
         let removeItemButton = document.createElement("button");
         removeItemButton.addEventListener("click", () => {removeItemFromList(noteItem)});
@@ -53,17 +53,17 @@ function removeItemFromList(targetItem) {
 
 
 // Change bullets to squares
-
 function changeBulletsToSquares() {
-    let _image = "./images/star.png"
+    //let _image = "./images/star.png"
     let bullet = document.querySelector("ul");
-    bullet.style.listStyleImage = 'url(' + _image + ')';
-    //bullet.style.listStyleType = "square"
+    //bullet.style.listStyleImage = 'url(' + _image + ')';
+    bullet.style.listStyleType = "square"
 }
 
+
 const themes = {
-    lightmode : {background: "white", text: "darkblue"}, // themeName is lightmode
-    darkmode : {background: "black", text: "white"}, // themeName is darkmode
+    lightmode : {background: "whitesmoke", text: "darkblue"}, // themeName is lightmode
+    darkmode : {background: "black", text: "white"} // themeName is darkmode
 }
 
 
@@ -71,18 +71,22 @@ const themes = {
 function changeCSSTheme(themeName) {
     for (let variable in themes[themeName]) {
         console.log("themes[themeName][variable] is:" + themes[themeName][variable]);
-        document.documentElement.style.setProperty(`--${variable}`, themes[themeName[variable]]);
+        document.documentElement.style.setProperty(`--${variable}`, themes[themeName][variable]);
     }
 }
 
 function toggleLightDark() {
     let currentBackgroundColour = getComputedStyle(document.documentElement).getPropertyValue("--background");
-
     let changeThemeButton = document.getElementById("change-theme");
     
-    if (currentBackgroundColour == "white") {
-        changeThemeButton.addEventListener("click", () => {changeCSSTheme("darkmode")});
+    if (currentBackgroundColour == "whitesmoke") {
+        changeCSSTheme("darkmode");
+        changeThemeButton.textContent = "Light Mode";
+        
     } else {
-        changeThemeButton.addEventListener("click", () => {changeCSSTheme("lightmode")});
+        changeCSSTheme("lightmode");
+        changeThemeButton.textContent = "Dark Mode";
     }
+
+    changeThemeButton.addEventListener("click", toggleLightDark);
 }

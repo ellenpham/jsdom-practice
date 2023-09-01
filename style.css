@@ -1,6 +1,5 @@
 #removebutton {
     color : white;
-    font-size: 12;
     font-family: 'Times New Roman', Times, serif;
 }
 
@@ -8,3 +7,4 @@ body {
     background-color: var(--background); /*reference from themes*/
     color: var(--text)  /*reference from themes*/
 }
+
