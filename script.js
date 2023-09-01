@@ -11,7 +11,7 @@ let notes = [
     "order vegetarian meals for next flights"
 ]
 
-// Create list of notes and remove button
+// Create list of notes and remove notes
 function createListOfNotes() {
     let rootULNode = document.querySelector("ul");
     rootULNode.innerHTML = "";
@@ -32,6 +32,8 @@ function createListOfNotes() {
         removeItemButton.style.backgroundColor = "palevioletred";
         removeItemButton.style.borderRadius = "5px";
         removeItemButton.style.border = "none";
+        removeItemButton.style.color = "white";
+        removeItemButton.style.fontFamily = "Times New Roman";
         
         
         newNoteItem.appendChild(removeItemButton)
@@ -51,42 +53,51 @@ function removeItemFromList(targetItem) {
     }
 }
 
+// Add new notes
+function addNotes () {
+    function addItemToList(event, targetId) {
+        event.preventDefault();
+        console.log("We tried to add a new note to the list.");
 
-// Change bullets to squares
-function changeBulletsToSquares() {
-    //let _image = "./images/star.png"
-    let bullet = document.querySelector("ul");
-    //bullet.style.listStyleImage = 'url(' + _image + ')';
-    bullet.style.listStyleType = "square"
-}
+        let inputField = document.getElementById(targetId);
+        let newItemName = inputField.value;
+        if (newItemName) {
+            console.log("newItemName is: " + newItemName);
 
+            notes.push(newItemName);
 
-const themes = {
-    lightmode : {background: "whitesmoke", text: "darkblue"}, // themeName is lightmode
-    darkmode : {background: "black", text: "white"} // themeName is darkmode
-}
-
-
-// Theme change functionality
-function changeCSSTheme(themeName) {
-    for (let variable in themes[themeName]) {
-        console.log("themes[themeName][variable] is:" + themes[themeName][variable]);
-        document.documentElement.style.setProperty(`--${variable}`, themes[themeName][variable]);
-    }
-}
-
-function toggleLightDark() {
-    let currentBackgroundColour = getComputedStyle(document.documentElement).getPropertyValue("--background");
-    let changeThemeButton = document.getElementById("change-theme");
-    
-    if (currentBackgroundColour == "whitesmoke") {
-        changeCSSTheme("darkmode");
-        changeThemeButton.textContent = "Light Mode";
-        
-    } else {
-        changeCSSTheme("lightmode");
-        changeThemeButton.textContent = "Dark Mode";
+            createListOfNotes();
+        } else {
+            console.warn("Attempted to add an empty item to the list.");
+            console.error("Example error");
+        }
     }
 
-    changeThemeButton.addEventListener("click", toggleLightDark);
+    let addButton = document.getElementById("add-item");
+    addButton.addEventListener("click" , (event) => {addItemToList(event, "note-input")});
 }
+
+
+// Hide-Show text-hint
+
+function hideShowTextHint() {
+    function inputHelperOnFocus(targetId) {
+        let helperElement = document.getElementById(targetId);
+        console.log("showing text hint now");
+        helperElement.style.display = "inherit";
+    }
+
+    function inputHelperOnBlur(targetId) {
+        let helperElement = document.getElementById(targetId);
+        console.log("hiding text hint now");
+        helperElement.style.display = "none";
+    }
+
+
+    let noteInput = document.getElementById("note-input");
+    noteInput.addEventListener("focusin", () => {inputHelperOnFocus("text-hint")});
+    noteInput.addEventListener("focusout", () => {inputHelperOnBlur("text-hint")});
+    inputHelperOnBlur("text-hint");
+}
+
+

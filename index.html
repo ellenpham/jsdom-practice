@@ -15,27 +15,38 @@
     <hr />
     <br />
 
+    <h2> Add new notes </h2>
+    <form>
+        <label> New item: </label>
+        <input type="text" id="note-input" />
+        <h6 id="text-hint"> e.g: Do the garden</h6>
+        <button id="add-item">Add</button>
+    </form>
+
+    <hr />
+
     <h2>My notes</h2>
     <ul id="notesList">
 
     </ul>
 
     <div>
-        <button id="change-theme">Toggle Light/Dark</button>
+        <button id="change-theme"></button>
     </div>
 
     <!-- <button onclick="toggleLightDark()">
         Toggle Light/Dark
     </button> -->
-    
 
     <script src="./script.js"></script>
+    <script src="./themeControl.js"></script>
 
     <script>
         createListOfNotes();
-        changeBulletsToSquares();
         //changeCSSTheme("darkmode");
         toggleLightDark();
+        addNotes()
+        hideShowTextHint()
     </script>
 </body>
 </html>
